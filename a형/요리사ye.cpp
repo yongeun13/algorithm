@@ -9,34 +9,33 @@ int adj[20][20] = { 0, };// 입력 받기
 int minDiff = 21e8;
 int N;
 
-
-//visited 가 1 인놈이랑 0인놈들 차이 구하기
+//costSum- num 과 num 비교해서 절댓값 return
 int process() {
-	int re1= 0;
+	int re1 = 0;
 	int re2 = 0;
-	for (int x = 0; x < N-1; x++)
+	for (int x = 0; x < N - 1; x++)
 	{
-		for (int y = x+1; y < N; y++) {
-			
+		for (int y = x + 1; y < N; y++) {
+
 			if (visited[x] == 0 && visited[y] == 0) {
 				re1 += adj[x][y] + adj[y][x];
 			}
 			else if (visited[x] == 1 && visited[y] == 1)
 			{
-				re2 += adj[x][y]+ adj[y][x];
+				re2 += adj[x][y] + adj[y][x];
 			}
 		}
 	}
 	int temp = re1 - re2;
-	if(temp <0)
+	if (temp < 0)
 		return -temp;
-	
+
 	return temp;
-	
+
 
 }
 
-void DFS(int now, int cnt) {
+void DFS(int cnt) {
 	//종료조건
 	//N/2번 실행시 종료
 	if (cnt == N / 2) {
@@ -46,12 +45,12 @@ void DFS(int now, int cnt) {
 		}
 		return;
 	}
-	
+
 
 	for (int x = 0; x < N; x++) {
-		
+
 		//가지치기 
-		
+
 		if (visited[x] == 1) continue;//중복방지
 		if (path[cnt - 1] > x) continue;//증가하는 경우만
 
@@ -60,7 +59,7 @@ void DFS(int now, int cnt) {
 		path[cnt] = x;
 
 		//모든 재료로 다 가보기
-		DFS(x, cnt + 1);
+		DFS(cnt + 1);
 
 		visited[x] = 0;
 
@@ -78,7 +77,7 @@ int main() {
 		for (int x = 0; x < 20; x++) {
 			visited[x] = 0;
 		}
-		
+
 		//input
 		cin >> N;
 
@@ -88,14 +87,12 @@ int main() {
 			}
 		}
 
-		visited[0] = 1;
-		path[0] = 0;
-		DFS(0, 1);
-		cout <<"#" << tc << " " << minDiff << endl;
-			
+		DFS(0);
+		cout << "#" << tc << " " << minDiff << endl;
+
 
 	}
-	
+
 
 	return 0;
 }
