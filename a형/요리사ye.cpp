@@ -5,11 +5,11 @@ using namespace std;
 
 int visited[20]; // idx: 식재료 종류, value: 선택여부
 int path[20];//edge가 증가하는 경우만 선택하기
-int adj[20][20] = { 0, };// 입력 받기
+int MAP[20][20] = { 0, };// 입력 받기
 int minDiff = 21e8;
 int N;
 
-//costSum- num 과 num 비교해서 절댓값 return
+//비교해서 절댓값 return
 int process() {
 	int re1 = 0;
 	int re2 = 0;
@@ -18,11 +18,11 @@ int process() {
 		for (int y = x + 1; y < N; y++) {
 
 			if (visited[x] == 0 && visited[y] == 0) {
-				re1 += adj[x][y] + adj[y][x];
+				re1 += MAP[x][y] + MAP[y][x];
 			}
 			else if (visited[x] == 1 && visited[y] == 1)
 			{
-				re2 += adj[x][y] + adj[y][x];
+				re2 += MAP[x][y] + MAP[y][x];
 			}
 		}
 	}
@@ -83,7 +83,7 @@ int main() {
 
 		for (int y = 0; y < N; y++) {
 			for (int x = 0; x < N; x++) {
-				cin >> adj[y][x];
+				cin >> MAP[y][x];
 			}
 		}
 
